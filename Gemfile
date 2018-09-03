@@ -39,6 +39,8 @@ gem 'jquery-rails'
 
 gem 'figaro'
 
+gem 'devise'
+
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
