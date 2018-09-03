@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20180903143423_add_index_to_name_in_users.rb
