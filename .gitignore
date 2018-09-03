@@ -28,3 +28,9 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+#ignore mac folder info
+*.DS_Store
+
+# Ignore application configuration
+/config/application.yml
