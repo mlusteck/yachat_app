@@ -4,6 +4,14 @@
   <strong>Name:</strong>
   <%= @room.name %>
 </p>
+<div id="messages">
+  <script>
+    $.get("<%= room_messages_path(@room) %>", { room_id: <%= @room.id %> });
+  </script>
+</div>
+
+<%= render "new_message" %>
+
 
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>

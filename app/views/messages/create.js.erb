@@ -1,0 +1,6 @@
+$("#messages").append(
+  "<%= j render partial: 'message', locals: {message: @message, current_user: current_user} %>"
+);
+$('html, body').animate({
+  scrollTop: $("#new-message").offset().top
+}, 200);

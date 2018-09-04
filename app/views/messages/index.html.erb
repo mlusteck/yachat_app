@@ -18,14 +18,12 @@
         <td><%= message.body %></td>
         <td><%= message.room %></td>
         <td><%= message.user %></td>
-        <td><%= link_to 'Show', message %></td>
-        <td><%= link_to 'Edit', edit_message_path(message) %></td>
-        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', room_message_path(message.room,message) %></td>
+        <td><%= link_to 'Edit', edit_room_message_path(message.room,message) %></td>
+        <td><%= link_to 'Destroy', room_message_path(message.room,message), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Message', new_message_path %>

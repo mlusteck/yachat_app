@@ -1,0 +1,7 @@
+<div id="new-message">
+  <hr />
+  <h4>Your message:</h4>
+  <%= form_with( model: [@room, @room.messages.build(user: current_user)], remote: true) do |f| %>
+    <%= render partial: "messages/message_form_inner", locals: { form: f } %>
+  <% end %>
+</div><!-- end new-message -->

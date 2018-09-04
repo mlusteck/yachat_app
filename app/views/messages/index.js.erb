@@ -1,0 +1,4 @@
+$("#messages").empty().prepend("<%= j render partial: 'rooms/messages' %>");
+$('html, body').animate({
+  scrollTop: $("#new-message").offset().top
+}, 20);
