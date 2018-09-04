@@ -8,4 +8,10 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates_uniqueness_of :name
+
+  after_initialize :init
+
+  def init
+    self.room_id  ||= 1
+  end
 end
