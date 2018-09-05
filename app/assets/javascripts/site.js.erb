@@ -1,0 +1,61 @@
+
+$.fn.isInViewport = function() {
+    var elementTop = $(this).offset().top;
+    var elementBottom = elementTop + $(this).outerHeight();
+
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+
+$.fn.prependWithoutScroll = function(content) {
+  var old_height = $(document).height();  //store document height before modifications
+  var old_scroll = $(window).scrollTop(); //remember the scroll position
+  $(this).prepend(content);
+  $(document).scrollTop(old_scroll + $(document).height() - old_height); //restore "scroll position"
+}
+
+$.fn.appendWithoutScroll = function(content) {
+  var old_height = $(document).height();  //store document height before modifications
+  var old_scroll = $(window).scrollTop(); //remember the scroll position
+  $(this).append(content);
+  $(document).scrollTop(old_scroll + $(document).height() - old_height); //restore "scroll position"
+}
+
+function stopGettingMessages() {
+  $('#message-top').hide();
+}
+
+function continueGettingMessages() {
+  $('#message-top').show();
+}
+
+function getMoreMessages () {
+  stopGettingMessages();
+  var roomId = $('#message-top').attr("data-room-id");
+  var getPath = $('#message-top').attr("data-get-path");
+  var messageList = $("#messages").children();
+  if(messageList.length > 0) {
+    var date = messageList.first().attr("data-timestamp");
+    var id = messageList.first().attr("data-id");
+    $.get(getPath,
+    { room_id: roomId,
+      before_id: id,
+      before_date: date
+    });
+  }
+  else {
+    $.get(getPath, { room_id: roomId });
+  }
+}
+
+// Rails & jQuery: turbolinks prevent document(ready),
+// use this instead:
+$(document).on( "turbolinks:load", function () {
+  $(window).on('resize scroll', function() {
+    if ($('#message-top').isInViewport()) {
+      getMoreMessages();
+    }
+  });
+});

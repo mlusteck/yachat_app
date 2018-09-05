@@ -3,8 +3,13 @@ class MessagesController < ApplicationController
 
   def index
     @room = Room.find(params[:room_id])
-    @messages = @room.messages.includes(:user).order("created_at ASC")
+    #@messages = @room.messages.includes(:user).order("created_at ASC")
     if @room
+      @messages = @room.messages.includes(:user).get_previous(
+                    params[:before_id],
+                    params[:before_date],
+                    5
+                  )
       respond_to do |format|
         format.js   # we want to do this with AJAX
       end

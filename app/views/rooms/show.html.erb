@@ -4,11 +4,13 @@
   <strong>Name:</strong>
   <%= @room.name %>
 </p>
-<div id="messages">
-  <script>
-    $.get("<%= room_messages_path(@room) %>", { room_id: <%= @room.id %> });
-  </script>
+<div id="message-top" data-get-path = "<%= room_messages_path(@room) %>" data-room-id = "<%= @room.id %>">
 </div>
+<div id="messages">
+</div>
+<script>
+  getMoreMessages();
+</script>
 
 <%= render "new_message" %>
 

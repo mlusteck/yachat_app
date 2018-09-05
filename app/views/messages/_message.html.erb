@@ -1,4 +1,4 @@
 <%# locals: message, current_user %>
-<p>
+<div id="<%= message.html_id %>" data-timestamp="<%= message.created_at %>" data-id="<%= message.id %>">
   <strong><%= message.user.name %></strong> <%= message.body %>
-</p>
+</div>

@@ -1,4 +1,11 @@
-$("#messages").empty().prepend("<%= j render partial: 'rooms/messages' %>");
-$('html, body').animate({
-  scrollTop: $("#new-message").offset().top
-}, 20);
+var newMessages = "<%= j render partial: 'rooms/messages' %>";
+if( newMessages == "") {
+  getMoreMessages = function () {};
+}
+else {
+  $("#messages").prependWithoutScroll(newMessages);
+  continueGettingMessages();
+  if ($('#message-top').isInViewport()) {
+    getMoreMessages();
+  }
+}
