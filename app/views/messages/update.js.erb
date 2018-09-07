@@ -1,0 +1,5 @@
+var currentMessage = $("#<%= dom_id(@message) %>");
+currentMessage.after(
+  "<%= j render partial: 'message', locals: {message: @message, current_user: current_user} %>"
+); // put the updated version after the old one
+currentMessage.remove();

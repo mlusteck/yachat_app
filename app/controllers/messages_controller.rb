@@ -1,5 +1,7 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  load_and_authorize_resource
 
   def index
     @room = Room.find(params[:room_id])
@@ -17,7 +19,7 @@ class MessagesController < ApplicationController
   end
 
   def show
-    @message = Message.find(params[:id])
+    @message = Message.find_by(id: params[:id])
     if @message
       @room = @message.room
       respond_to do |format|
@@ -33,6 +35,15 @@ class MessagesController < ApplicationController
 
   # GET /messages/1/edit
   def edit
+    @message = find_message params[:id]
+    if @message
+      @room = @message.room
+      respond_to do |format|
+        format.html { redirect_to @room  }
+        format.json { render :show, status: :created, location: @room }
+        format.js   # we want to do this with AJAX
+      end
+    end
   end
 
   # POST /messages
@@ -62,15 +73,23 @@ class MessagesController < ApplicationController
   # PATCH/PUT /messages/1
   # PATCH/PUT /messages/1.json
   def update
-    respond_to do |format|
-      if @message.update(message_params)
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
-        format.json { render :show, status: :ok, location: @message }
-      else
-        format.html { render :edit }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+    @message = find_message params[:id]
+    if @message
+      @room = @message.room
+      respond_to do |format|
+        if @message.update(message_params)
+          format.html { redirect_to @room  }
+          format.json { render :show, status: :created, location: @room }
+          format.js   # we want to do this with AJAX
+          return
+        else
+          format.html { redirect_to @room, alert: 'Message was not updated.' }
+          format.json { render json: @message.errors, status: :unprocessable_entity }
+          return
+        end
       end
     end
+    redirect_to @room
   end
 
   # DELETE /messages/1
@@ -92,5 +111,13 @@ class MessagesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
       params.require(:message).permit(:body)
+    end
+
+    def find_message message_id
+      if current_user.admin
+        Message.find_by(id: message_id)
+      else
+        current_user.messages.find_by(id: message_id)
+      end
     end
 end

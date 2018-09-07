@@ -1,0 +1,15 @@
+var currentMessage = $("#<%= dom_id(@message) %>");
+$(".message-body", currentMessage).hide();
+$(".message-top", currentMessage).hide();
+currentMessage.append("<%= j render 'edit_message' %>");
+$("textarea", currentMessage).attr("value", "<%= @message.body %>")
+
+$(".edit-message input.btn-primary", currentMessage).after("&nbsp;&nbsp;<a class='cancel edit-link' href='#'>Cancel</a>");
+$(".edit-message a.cancel", currentMessage).click( function () {
+   var currentMessage = $("#<%= dom_id(@message) %>");
+   $(".message-top", currentMessage).show();
+   $(".message-body", currentMessage).show();
+   $(".edit-message", currentMessage).remove();
+   $(".edit-top", currentMessage).remove();
+   return false;
+});

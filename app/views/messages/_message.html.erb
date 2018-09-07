@@ -1,4 +1,31 @@
 <%# locals: message, current_user %>
-<div id="<%= message.html_id %>" data-timestamp="<%= message.created_at %>" data-id="<%= message.id %>">
-  <strong><%= message.user.name %></strong> <%= message.body %>
+<div class="message" id="<%= dom_id(message) %>" data-timestamp="<%= message.created_at %>" data-id="<%= message.id %>">
+  <div class="message-top">
+    <strong><%= message.user.name %></strong>
+    <small><em>
+      <% if message.created_at != message.updated_at %>
+        edited <%= "#{time_ago_in_words(message.updated_at)} ago" %>
+      <% else %>
+        wrote <%= "#{time_ago_in_words(message.created_at)} ago" %>
+      <% end %>
+    </em></small>
+    <% if can? :edit, message%>
+      <small>
+        &bull;
+        <%= link_to 'Edit', edit_room_message_path(message.room, message),
+                    remote: true,
+                    class: "edit-link" %>
+      </small>
+    <% end %>
+    <% if can? :destroy, message %>
+      <small>
+        &bull;
+        <%= link_to 'Remove', edit_room_message_path(message.room, message),
+                    method: :delete, remote: true,
+                    data: { confirm: 'Are you sure?' },
+                    class: "edit-link" %>
+      </small>
+    <% end %>
+  </div>
+  <div class="message-body"><%= message.body %></div>
 </div>

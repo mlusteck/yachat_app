@@ -1,0 +1,8 @@
+<% if signed_in? %>
+  <div class="edit-top">Edit message:</div>
+  <div class="edit-message">
+    <%= form_with( model: [@room, @message], remote: true) do |f| %>
+      <%= render partial: "message_form_inner", locals: { form: f } %>
+    <% end %>
+  </div><!-- end new-comment -->
+<% end %>

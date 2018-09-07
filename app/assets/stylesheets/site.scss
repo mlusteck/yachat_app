@@ -1,0 +1,104 @@
+/********************  general rules  *****************************************/
+* { box-sizing: border-box; }
+
+body {
+  position: relative;
+  padding-top: 54px;
+  font-size: 1em;
+  line-height: normal;
+}
+
+h1,
+h2,
+h3 {
+}
+
+a,
+a:link,
+a:visited {
+  color: #006090;
+}
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #4080B0;
+  background-color: transparent;
+}
+
+a.edit-link {
+  font-weight: bold;
+}
+
+section {
+  padding-top: 1em;
+  padding-bottom: 0;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+section h1,
+section h2,
+section h3 {
+  text-align: center;
+}
+
+#notice,
+#alert {
+  text-align: center;
+  margin: 0;
+  padding: 0.3em;
+  font-size: 0.8em;
+  color: #a0d080;
+}
+
+#alert { color: #f06050; }
+/*-------------------  end general rules  ------------------------------------*/
+
+/********************  Messages  **********************************************/
+  .message {
+    margin: 0.7em auto;
+    border-radius: 1em;
+    background-color: #F0F4FF;
+  }
+
+  .message-top,
+  .edit-top {
+    padding: 0.3em 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    background-color: #E0EAFF;
+  }
+  .message-body {
+    padding: 0.7em 1em;
+    white-space: pre;
+  }
+  .edit-message {
+    padding: 0.7em 1em;
+  }
+
+/*-------------------  end Messages  -----------------------------------------*/
+
+/******************** typography  *********************************************/
+
+body,
+p,
+li {
+  font-family: 'Raleway', sans-serif;
+}
+
+h1,
+h2,
+h3,
+nav.navbar,
+nav.navbar a,
+footer {
+  font-family: 'Raleway', sans-serif;
+}
+
+hr {
+  margin: 0.6em 0;
+  border-top: 1px solid rgba(255, 255, 100, 0.4);
+}
+
+
+/*-------------------  end typography  ---------------------------------------*/
